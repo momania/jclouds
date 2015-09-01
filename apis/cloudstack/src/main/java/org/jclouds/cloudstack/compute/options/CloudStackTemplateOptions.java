@@ -59,7 +59,8 @@ public class CloudStackTemplateOptions extends TemplateOptions implements Clonea
    protected boolean generateSecurityGroup = false;
    protected String diskOfferingId;
    protected int dataDiskSize;
-   
+   protected byte[] unencodedData;
+
    @Override
    public CloudStackTemplateOptions clone() {
       CloudStackTemplateOptions options = new CloudStackTemplateOptions();
@@ -83,6 +84,7 @@ public class CloudStackTemplateOptions extends TemplateOptions implements Clonea
          eTo.setupStaticNat(setupStaticNat);
          eTo.diskOfferingId(diskOfferingId);
          eTo.dataDiskSize(dataDiskSize);
+         eTo.userData(unencodedData);
       }
    }
 
@@ -111,12 +113,24 @@ public class CloudStackTemplateOptions extends TemplateOptions implements Clonea
    }
 
    /**
-    * @see DeployVirtualMachineOptions#securityGroupId
+    * @see DeployVirtualMachineOptions#userData
     */
-   public CloudStackTemplateOptions securityGroupId(String securityGroupId) {
-      this.securityGroupIds.add(securityGroupId);
-      return this;
+   public CloudStackTemplateOptions userData(byte[] unencodedData) {
+       this.unencodedData = unencodedData;
+       return this;
    }
+
+   public byte[] getUserData() {
+        return unencodedData;
+    }
+
+   /**
+   * @see DeployVirtualMachineOptions#securityGroupId
+   */
+  public CloudStackTemplateOptions securityGroupId(String securityGroupId) {
+     this.securityGroupIds.add(securityGroupId);
+     return this;
+  }
 
    /**
     * @see DeployVirtualMachineOptions#securityGroupIds
@@ -276,6 +290,14 @@ public class CloudStackTemplateOptions extends TemplateOptions implements Clonea
       public static CloudStackTemplateOptions dataDiskSize(int dataDiskSize) {
          CloudStackTemplateOptions options = new CloudStackTemplateOptions();
          return options.dataDiskSize(dataDiskSize);
+      }
+
+      /**
+       * @see CloudStackTemplateOptions#userData
+       */
+      public static CloudStackTemplateOptions userData(byte[] unencodedData) {
+         CloudStackTemplateOptions options = new CloudStackTemplateOptions();
+         return options.userData(unencodedData);
       }
 
       /**
