@@ -22,6 +22,7 @@ import java.io.IOException;
 
 import org.jclouds.Fallbacks.EmptySetOnNotFoundOr404;
 import org.jclouds.Fallbacks.NullOnNotFoundOr404;
+import org.jclouds.cloudstack.options.UpdateVirtualMachineOptions;
 import org.jclouds.fallbacks.MapHttp4xxCodesToExceptions;
 import org.jclouds.cloudstack.internal.BaseCloudStackApiTest;
 import org.jclouds.cloudstack.options.AssignVirtualMachineOptions;
@@ -187,11 +188,11 @@ public class VirtualMachineApiTest extends BaseCloudStackApiTest<VirtualMachineA
    }
 
    public void testChangeServiceForVirtualMachine() throws SecurityException, NoSuchMethodException, IOException {
-      Invokable<?, ?> method = method(VirtualMachineApi.class, "changeServiceForVirtualMachine", String.class);
-      GeneratedHttpRequest httpRequest = processor.createRequest(method, ImmutableList.<Object> of(5));
+      Invokable<?, ?> method = method(VirtualMachineApi.class, "changeServiceForVirtualMachine", String.class, String.class);
+      GeneratedHttpRequest httpRequest = processor.createRequest(method, ImmutableList.<Object> of(5, 6));
 
       assertRequestLineEquals(httpRequest,
-            "GET http://localhost:8080/client/api?response=json&command=changeServiceForVirtualMachine&id=5 HTTP/1.1");
+            "GET http://localhost:8080/client/api?response=json&command=changeServiceForVirtualMachine&id=5&serviceofferingid=6 HTTP/1.1");
       assertNonPayloadHeadersEqual(httpRequest, "Accept: application/json\n");
       assertPayloadEquals(httpRequest, null, null, false);
 
@@ -204,11 +205,14 @@ public class VirtualMachineApiTest extends BaseCloudStackApiTest<VirtualMachineA
    }
 
    public void testUpdateVirtualMachine() throws SecurityException, NoSuchMethodException, IOException {
-      Invokable<?, ?> method = method(VirtualMachineApi.class, "updateVirtualMachine", String.class);
-      GeneratedHttpRequest httpRequest = processor.createRequest(method, ImmutableList.<Object> of(5));
+      Invokable<?, ?> method = method(VirtualMachineApi.class, "updateVirtualMachine", String.class,
+              UpdateVirtualMachineOptions.class);
+      GeneratedHttpRequest httpRequest = processor.createRequest(method, ImmutableList.<Object> of("5",
+              UpdateVirtualMachineOptions.Builder.group("test")));
+
 
       assertRequestLineEquals(httpRequest,
-            "GET http://localhost:8080/client/api?response=json&command=updateVirtualMachine&id=5 HTTP/1.1");
+            "GET http://localhost:8080/client/api?response=json&command=updateVirtualMachine&id=5&group=test HTTP/1.1");
       assertNonPayloadHeadersEqual(httpRequest, "Accept: application/json\n");
       assertPayloadEquals(httpRequest, null, null, false);
 
