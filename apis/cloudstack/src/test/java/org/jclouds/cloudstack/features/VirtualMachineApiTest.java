@@ -16,11 +16,11 @@
  */
 package org.jclouds.cloudstack.features;
 
-import static com.google.common.io.BaseEncoding.base64Url;
 import static org.jclouds.reflect.Reflection2.method;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 import org.jclouds.Fallbacks.EmptySetOnNotFoundOr404;
 import org.jclouds.Fallbacks.NullOnNotFoundOr404;
@@ -210,7 +210,7 @@ public class VirtualMachineApiTest extends BaseCloudStackApiTest<VirtualMachineA
    public void testUpdateVirtualMachine() throws SecurityException, NoSuchMethodException, IOException {
       Invokable<?, ?> method = method(VirtualMachineApi.class, "updateVirtualMachine", String.class,
               UpdateVirtualMachineOptions.class);
-      byte[] unencodedData = "userData".getBytes("utf-8");
+      byte[] unencodedData = "userData".getBytes(Charset.forName("utf-8"));
       UpdateVirtualMachineOptions options = UpdateVirtualMachineOptions.Builder
             .displayName("disp").group("test").haEnable(true).osTypeId("osid").userData(unencodedData);
       GeneratedHttpRequest httpRequest = processor.createRequest(method, ImmutableList.<Object> of("5",
@@ -221,7 +221,8 @@ public class VirtualMachineApiTest extends BaseCloudStackApiTest<VirtualMachineA
 
       assertRequestLineEquals(httpRequest,
             "GET http://localhost:8080/client/api?response=json&command=updateVirtualMachine" +
-                  "&id=5&displayname=disp&group=test&haenable=true&ostypeid=osid&userdata="+base64UrlEncodedData+" HTTP/1.1");
+                  "&id=5&displayname=disp&group=test&haenable=true&ostypeid=osid&userdata=" +
+                  base64UrlEncodedData + " HTTP/1.1");
       assertNonPayloadHeadersEqual(httpRequest, "Accept: application/json\n");
       assertPayloadEquals(httpRequest, null, null, false);
 
