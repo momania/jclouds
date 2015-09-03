@@ -32,13 +32,13 @@ import com.google.common.collect.Sets;
  * {@link ComputeService#createNodesInGroup(String, int, TemplateOptions)} and
  * {@link ComputeService#createNodesInGroup(String, int, TemplateOptions)}
  * operations on the <em>gogrid</em> provider.
- * 
+ *
  * <h2>Usage</h2> The recommended way to instantiate a
  * {@link CloudStackTemplateOptions} object is to statically import
  * {@code CloudStackTemplateOptions.*} and invoke a static creation method
  * followed by an instance mutator (if needed):
  * <p>
- * 
+ *
  * <pre>
  * import static org.jclouds.compute.options.CloudStackTemplateOptions.Builder.*;
  * ComputeService client = // get connection
@@ -116,21 +116,21 @@ public class CloudStackTemplateOptions extends TemplateOptions implements Clonea
     * @see DeployVirtualMachineOptions#userData
     */
    public CloudStackTemplateOptions userData(byte[] unencodedData) {
-       this.unencodedData = unencodedData;
-       return this;
+      this.unencodedData = unencodedData;
+      return this;
    }
 
    public byte[] getUserData() {
-        return unencodedData;
-    }
+      return unencodedData;
+   }
 
    /**
-   * @see DeployVirtualMachineOptions#securityGroupId
-   */
-  public CloudStackTemplateOptions securityGroupId(String securityGroupId) {
-     this.securityGroupIds.add(securityGroupId);
-     return this;
-  }
+    * @see DeployVirtualMachineOptions#securityGroupId
+    */
+   public CloudStackTemplateOptions securityGroupId(String securityGroupId) {
+      this.securityGroupIds.add(securityGroupId);
+      return this;
+   }
 
    /**
     * @see DeployVirtualMachineOptions#securityGroupIds
@@ -317,7 +317,7 @@ public class CloudStackTemplateOptions extends TemplateOptions implements Clonea
       }
 
       /**
-       * @see CloudStackTemplateOptions#shouldGenerateSecurityGroup() 
+       * @see CloudStackTemplateOptions#shouldGenerateSecurityGroup()
        */
       public static CloudStackTemplateOptions generateSecurityGroup(boolean enable) {
          return new CloudStackTemplateOptions().generateSecurityGroup(enable);
@@ -374,7 +374,7 @@ public class CloudStackTemplateOptions extends TemplateOptions implements Clonea
       }
 
       /**
-       * @see CloudStackTemplateOptions#shouldGenerateKeyPair() 
+       * @see CloudStackTemplateOptions#shouldGenerateKeyPair()
        */
       public static CloudStackTemplateOptions generateKeyPair(boolean enable) {
          return new CloudStackTemplateOptions().generateKeyPair(enable);

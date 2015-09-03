@@ -184,7 +184,7 @@ public class CloudStackComputeServiceAdapter implements
       }
 
       if (templateOptions.getUserData() != null) {
-          options.userData(templateOptions.getUserData());
+         options.userData(templateOptions.getUserData());
       }
 
       if (templateOptions.getKeyPair() != null) {
